@@ -1,0 +1,4 @@
+name: Purpur Expansion
+version: '${version}'
+main: io.github.tanguygab.purpurexpansion.PurpurExpansion
+api-version: 1.19
