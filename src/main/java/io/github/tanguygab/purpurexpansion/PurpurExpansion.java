@@ -7,6 +7,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class PurpurExpansion extends PlaceholderExpansion {
 
 
@@ -23,6 +25,17 @@ public final class PurpurExpansion extends PlaceholderExpansion {
     @Override
     public @NotNull String getVersion() {
         return "1.0.0";
+    }
+
+    @Override
+    public @NotNull List<String> getPlaceholders() {
+        return List.of("%purpur_server_name%",
+                "%purpur_server_lagging%",
+                "%purpur_player_purpurclient%",
+                "%purpur_player_afk%",
+                "%purpur_player_spawninvulnerable%",
+                "%purpur_player_immunetofire%"
+        );
     }
 
     @Override
@@ -43,20 +56,22 @@ public final class PurpurExpansion extends PlaceholderExpansion {
 
         switch (type) {
             case "server" -> {
-                switch (placeholder) {
+                return switch (placeholder) {
                     case "name" -> Bukkit.getServer().getName();
-                    case "lagging" -> Bukkit.getServer().isLagging();
-                }
+                    case "lagging" -> Bukkit.getServer().isLagging()+"";
+                    default -> null;
+                };
             }
             case "player" -> {
                 Player p = player.getPlayer();
                 if (p == null) break;
-                switch (placeholder) {
-                    case "purpurclient" -> p.usesPurpurClient();
-                    case "afk" -> p.isAfk();
-                    case "spawninvulnerable" -> p.isSpawnInvulnerable();
-                    case "immunetofire" -> p.isImmuneToFire();
-                }
+                return switch (placeholder) {
+                    case "purpurclient" -> p.usesPurpurClient()+"";
+                    case "afk" -> p.isAfk()+"";
+                    case "spawninvulnerable" -> p.isSpawnInvulnerable()+"";
+                    case "immunetofire" -> p.isImmuneToFire()+"";
+                    default -> null;
+                };
             }
         }
 
